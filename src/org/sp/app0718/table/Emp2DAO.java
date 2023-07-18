@@ -88,10 +88,44 @@ public class Emp2DAO {
 	
 	//레코드 1건 수정하기 
 	public void update() {
-		//한줄을 업데이트하자
-		String sql="update  emp2  set ename='변수', job='변수' ";
-		sql+=", mgr=변수, hiredate='변수', sal=변수, comm=변수, deptno=변수";
-		sql+=" where empno=변수";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con=DriverManager.getConnection(url, user, pass);
+			if(con==null) {
+				System.out.println("접속실패");
+			}else {
+				//한줄을 업데이트하자
+				String sql="update  emp2  set ename='변수', job='변수' ";
+				sql+=", mgr=변수, hiredate='변수', sal=변수, comm=변수, deptno=변수";
+				sql+=" where empno=변수";
+				
+				System.out.println(sql);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}			
+		}
+		
+		
 	}
 	
 	

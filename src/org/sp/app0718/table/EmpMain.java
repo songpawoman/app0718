@@ -46,6 +46,8 @@ public class EmpMain extends JFrame implements TableModelListener{
 			public void keyReleased(KeyEvent e) {
 				//System.out.println("입력 완료했어!");
 				//오라클에 반영하기 update~
+				 //중재자(tablemodel).emp2DAO.update();
+				model.emp2DAO.update();
 			}
 		});
 	}
