@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 //Emp2 에 대한 CRUD를 담당하는 DAO를 정의한다..
 public class Emp2DAO {
@@ -14,11 +15,12 @@ public class Emp2DAO {
 	String pass="1234";
 	
 	//모든 레코드 가져오기 
-	public void selectAll() {
+	public List selectAll() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ArrayList list=new ArrayList(); //size가 0인 리스트 생성
+		
+		ArrayList<Emp2DTO> list=new ArrayList<Emp2DTO>(); //size가 0인 리스트 생성
 		
 		try {
 			//1단계: 드라이버 로드
@@ -36,7 +38,23 @@ public class Emp2DAO {
 				pstmt=con.prepareStatement(sql);//쿼리문 준비 
 				rs=pstmt.executeQuery();//쿼리실행
 				
-				
+				//rs는 곧 close될 예정이므로, rs를 대체할 매개체에 옮겨담자 
+				//어제는 배열에 담았지만, 오늘은 보다 객체지향 적인 방법을 이용 
+				//레코드 1건 --> 클래스로부터 생성된 인스턴스 1건 
+				while(rs.next()) {
+					Emp2DTO dto = new Emp2DTO(); //빈 dto 생성
+					
+					dto.setEmpno(rs.getInt("empno"));
+					dto.setEname(rs.getString("ename"));
+					dto.setJob(rs.getString("job"));
+					dto.setMgr(rs.getInt("mgr"));
+					dto.setHiredate(rs.getString("hiredate"));
+					dto.setSal(rs.getInt("sal"));
+					dto.setComm(rs.getInt("comm"));
+					dto.setDeptno(rs.getInt("deptno"));
+					list.add(dto);
+				}
+				System.out.println("채워진 사원 수는 "+list.size());
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -65,7 +83,7 @@ public class Emp2DAO {
 				}
 			}
 		}
-		
+		return list;
 	}
 	
 }
