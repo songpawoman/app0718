@@ -86,7 +86,22 @@ public class Emp2DAO {
 		return list;
 	}
 	
+	//레코드 1건 수정하기 
+	public void update() {
+		//한줄을 업데이트하자
+		String sql="update  emp2  set ename='변수', job='변수' ";
+		sql+=", mgr=변수, hiredate='변수', sal=변수, comm=변수, deptno=변수";
+		sql+=" where empno=변수";
+	}
+	
+	
 }
+
+
+
+
+
+
 
 
 

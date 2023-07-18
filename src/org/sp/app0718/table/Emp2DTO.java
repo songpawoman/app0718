@@ -3,6 +3,7 @@ package org.sp.app0718.table;
 //하나의 레코드를 담기위한 객체 
 //이러한 용도의 클래스를 가리켜 어플리케이션 설계분야에서는 DTO라 한다. 
 //즉, 로직이 아닌 순수한 데이터만을 담을 목적으로 정의한 객체를 의미 
+//Data Transfer Object , VO (=Value Object)
 public class Emp2DTO {
 	private int empno; //0
 	private String ename; //1
