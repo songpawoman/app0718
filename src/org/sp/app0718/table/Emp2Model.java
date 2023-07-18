@@ -8,7 +8,9 @@ import javax.swing.table.AbstractTableModel;
 public class Emp2Model extends AbstractTableModel{
 	Emp2DAO emp2DAO;
 	List<Emp2DTO> list;
-	
+	String[] column= {
+		"empno","ename","job","mgr","hiredate","sal","comm","deptno"
+	};
 	public Emp2Model() {
 		emp2DAO = new Emp2DAO();
 		list=emp2DAO.selectAll();
@@ -29,6 +31,10 @@ public class Emp2Model extends AbstractTableModel{
 	//JTable 에게 출력할 열의 수를 알려준다 
 	public int getColumnCount() {
 		return 8;
+	}
+	
+	public String getColumnName(int col) {
+		return column[col];
 	}
 	
 	//JTable에게 각 좌표의 셀마다 들어갈 데이터를 알려준다
