@@ -87,7 +87,7 @@ public class Emp2DAO {
 	}
 	
 	//레코드 1건 수정하기 
-	public void update() {
+	public void update(int empno, String ename,String job, int mgr, String hiredate, int sal, int comm, int deptno ) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		
@@ -98,11 +98,18 @@ public class Emp2DAO {
 				System.out.println("접속실패");
 			}else {
 				//한줄을 업데이트하자
-				String sql="update  emp2  set ename='변수', job='변수' ";
-				sql+=", mgr=변수, hiredate='변수', sal=변수, comm=변수, deptno=변수";
-				sql+=" where empno=변수";
+				String sql="update  emp2  set ename='"+ename+"', job='"+job+"' ";
+				sql+=", mgr="+mgr+", hiredate='"+hiredate+"', sal="+sal+", comm="+comm+", deptno="+deptno;
+				sql+=" where empno="+empno;
 				
-				System.out.println(sql);
+				//System.out.println(sql); //검증 
+				pstmt=con.prepareStatement(sql);//쿼리문 준비
+				int result=pstmt.executeUpdate();//쿼리실행
+				if(result>0) {
+					System.out.println("성공");
+				}else {
+					System.out.println("실패");
+				}				
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

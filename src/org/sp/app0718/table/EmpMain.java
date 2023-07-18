@@ -17,6 +17,8 @@ public class EmpMain extends JFrame implements TableModelListener{
 	JTable table;
 	JScrollPane scroll;
 	Emp2Model model;
+	int row; //마우스로 지금 클릭한 행
+	int col; //마우스로 지금 클릭한 열
 	
 	public EmpMain() {
 		table =new JTable(model=new Emp2Model());
@@ -32,8 +34,8 @@ public class EmpMain extends JFrame implements TableModelListener{
 		
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				int row=table.getSelectedRow();
-				int col=table.getSelectedColumn();
+				row=table.getSelectedRow();
+				col=table.getSelectedColumn();
 				
 				String value=(String)table.getValueAt(row, col);
 				System.out.println(row+","+col+"의 값은 "+value);
@@ -47,7 +49,20 @@ public class EmpMain extends JFrame implements TableModelListener{
 				//System.out.println("입력 완료했어!");
 				//오라클에 반영하기 update~
 				 //중재자(tablemodel).emp2DAO.update();
-				model.emp2DAO.update();
+				
+				//현재 선택된 행의 모든 열을 가져오기 
+				String empno=(String)table.getValueAt(row, 0); 
+				String ename=(String)table.getValueAt(row, 1); 
+				String job=(String)table.getValueAt(row, 2); 
+				String mgr=(String)table.getValueAt(row, 3);
+				String hiredate=(String)table.getValueAt(row, 4);
+				hiredate=hiredate.substring(0, 10);
+				
+				String sal=(String)table.getValueAt(row, 5); 
+				String comm=(String)table.getValueAt(row, 6);
+				String deptno=(String)table.getValueAt(row, 7);
+				
+				model.emp2DAO.update(Integer.parseInt(empno), ename, job, Integer.parseInt(mgr), hiredate, Integer.parseInt(sal), Integer.parseInt(comm), Integer.parseInt(deptno));
 			}
 		});
 	}
