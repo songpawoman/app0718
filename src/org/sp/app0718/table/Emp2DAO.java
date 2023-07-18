@@ -87,7 +87,7 @@ public class Emp2DAO {
 	}
 	
 	//레코드 1건 수정하기 
-	public void update(int empno, String ename,String job, int mgr, String hiredate, int sal, int comm, int deptno ) {
+	public void update(Emp2DTO dto) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		
@@ -98,9 +98,9 @@ public class Emp2DAO {
 				System.out.println("접속실패");
 			}else {
 				//한줄을 업데이트하자
-				String sql="update  emp2  set ename='"+ename+"', job='"+job+"' ";
-				sql+=", mgr="+mgr+", hiredate='"+hiredate+"', sal="+sal+", comm="+comm+", deptno="+deptno;
-				sql+=" where empno="+empno;
+				String sql="update  emp2  set ename='"+dto.getEname()+"', job='"+dto.getJob()+"' ";
+				sql+=", mgr="+dto.getMgr()+", hiredate='"+dto.getHiredate()+"', sal="+dto.getSal()+", comm="+dto.getComm()+", deptno="+dto.getDeptno();
+				sql+=" where empno="+dto.getEmpno();
 				
 				//System.out.println(sql); //검증 
 				pstmt=con.prepareStatement(sql);//쿼리문 준비

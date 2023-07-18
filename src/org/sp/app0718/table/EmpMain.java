@@ -62,7 +62,17 @@ public class EmpMain extends JFrame implements TableModelListener{
 				String comm=(String)table.getValueAt(row, 6);
 				String deptno=(String)table.getValueAt(row, 7);
 				
-				model.emp2DAO.update(Integer.parseInt(empno), ename, job, Integer.parseInt(mgr), hiredate, Integer.parseInt(sal), Integer.parseInt(comm), Integer.parseInt(deptno));
+				Emp2DTO dto = new Emp2DTO();
+				dto.setEmpno(Integer.parseInt(empno));
+				dto.setEname(ename);
+				dto.setJob(job);
+				dto.setMgr(Integer.parseInt(mgr));
+				dto.setHiredate(hiredate);
+				dto.setSal(Integer.parseInt(sal));
+				dto.setComm(Integer.parseInt(comm));
+				dto.setDeptno(Integer.parseInt(deptno));
+				
+				model.emp2DAO.update(dto);
 			}
 		});
 	}
